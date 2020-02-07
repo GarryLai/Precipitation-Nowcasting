@@ -5,7 +5,7 @@ from training import *
 def restore_net(idx):
 
     print("Reloading previous model")
-    net = torch.load(args.model_dir+"model_{0}.pkl".format(idx))
+    net = torch.load(args.model_dir+"model_{0}.pkl".format(idx), map_location=torch.device('cpu'))
     return net
 
 

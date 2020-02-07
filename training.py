@@ -99,7 +99,7 @@ def run_training(args,reload=False):
             if num > maximum:
                 maximum = num
         model_name = "model_"+str(maximum)+".pkl"
-        model = torch.load(args.model_dir+model_name)
+        model = torch.load(args.model_dir+model_name, map_location=torch.device('cpu'))
         start = maximum+1
 
     else:

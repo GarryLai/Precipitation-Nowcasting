@@ -135,8 +135,8 @@ class Dataloader0():
             pre = self.data_list[i]
             nex = self.data_list[i+(self.seq_length - 1)]
 
-            a = pre.split('/')
-            b = nex.split('/')
+            a = pre.split('\\')
+            b = nex.split('\\')
 
             a_UTC = a[-1][:-4]
             b_UTC = b[-1][:-4]
