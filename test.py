@@ -24,14 +24,14 @@ def test(idx,model,reload=False):
         self_built_dataset,
         batch_size=args.batch_size,
         shuffle=False,
-        num_workers=4,
+        num_workers=0,
         drop_last=True) 
 
     for iteration,valid_data in enumerate(trainloader,0):
         
         print(iteration)
         valid_X,valid_Y = valid_data
-        valid_X = Variable(valid_X, requires_grad=False).cuda()
+        valid_X = Variable(valid_X, requires_grad=False).cpu()
 
         output_list = model(valid_X)
 
@@ -42,14 +42,14 @@ def test(idx,model,reload=False):
             A = valid_X[j][-1].data.cpu().numpy().reshape(args.img_size,args.img_size)
             A = (A+0.5).astype(np.uint8)
             A = Image.fromarray(A)
-            path = args.img_dir+start_time.split("/")[-1]
+            path = args.img_dir+start_time.split("\\")[-1]
             A.save(path)
 
             for k in range(args.seq_length-args.seq_start):
                 A = output_list[k][j,0,:,:].data.cpu().numpy().reshape(args.img_size,args.img_size)
                 A = (A+0.5).astype(np.uint8)
                 A = Image.fromarray(A)
-                path = args.img_dir+time_list[k][:-4].split("/")[-1]+"_{}.png".format(k)
+                path = args.img_dir+time_list[k][:-4].split("\\")[-1]+"_{}.png".format(k)
                 A.save(path)
 
         output_list = None

@@ -61,10 +61,10 @@ class Model(nn.Module):
         X = None
         output = [None]*args.seq_length
         state_size = [args.batch_size, self.hidden_size]+[self.size1,self.size1]
-        hidden1 = Variable(torch.zeros(state_size)).cuda()
-        cell1 = Variable(torch.zeros(state_size)).cuda()
-        hidden2 = Variable(torch.zeros(state_size)).cuda()
-        cell2 = Variable(torch.zeros(state_size)).cuda()
+        hidden1 = Variable(torch.zeros(state_size)).cpu()
+        cell1 = Variable(torch.zeros(state_size)).cpu()
+        hidden2 = Variable(torch.zeros(state_size)).cpu()
+        cell2 = Variable(torch.zeros(state_size)).cpu()
         
         for i in range(args.seq_start):
                                                         
@@ -106,7 +106,7 @@ def run_training(args,reload=False):
         print('Initiating new model')
         
         model = Model()
-        model = model.cuda()
+        model = model.cpu()
         start = 0
 
     torch.manual_seed(1)
@@ -136,8 +136,8 @@ def run_training(args,reload=False):
             loss = 0
             # X is the given data while the Y is the real output
             X, Y = data
-            X = Variable(X).cuda()
-            Y = Variable(Y).cuda()
+            X = Variable(X).cpu()
+            Y = Variable(Y).cpu()
             optimizer.zero_grad()         
 
             output_list = model(X)
