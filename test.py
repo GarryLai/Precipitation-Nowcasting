@@ -1,11 +1,14 @@
 from util import *
 from training import *
 
- 
 def restore_net(idx):
 
     print("Reloading previous model")
-    net = torch.load(args.model_dir+"model_{0}.pkl".format(idx), map_location=torch.device('cpu'))
+    if (torch.cuda.is_available() == True):
+            net = torch.load(args.model_dir+"model_{0}.pkl".format(idx), map_location=torch.device('cuda'))
+    else:
+            net = torch.load(args.model_dir+"model_{0}.pkl".format(idx), map_location=torch.device('cpu'))
+
     return net
 
 
@@ -31,9 +34,13 @@ def test(idx,model,reload=False):
         
         print(iteration)
         valid_X,valid_Y = valid_data
-        valid_X = Variable(valid_X, requires_grad=False).cpu()
-
-        output_list = model(valid_X)
+        if (torch.cuda.is_available() == True):
+            valid_X = Variable(valid_X, requires_grad=False).cuda()
+        else:
+            valid_X = Variable(valid_X, requires_grad=False).cpu()
+        
+        with torch.no_grad():
+            output_list = model(valid_X)
 
         for j in range(args.batch_size):
 
@@ -57,7 +64,5 @@ def test(idx,model,reload=False):
 if __name__== "__main__":
 
     test(42,None,reload=True)
-
-
 
 

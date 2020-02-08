@@ -61,10 +61,16 @@ class Model(nn.Module):
         X = None
         output = [None]*args.seq_length
         state_size = [args.batch_size, self.hidden_size]+[self.size1,self.size1]
-        hidden1 = Variable(torch.zeros(state_size)).cpu()
-        cell1 = Variable(torch.zeros(state_size)).cpu()
-        hidden2 = Variable(torch.zeros(state_size)).cpu()
-        cell2 = Variable(torch.zeros(state_size)).cpu()
+        if (torch.cuda.is_available() == True):
+            hidden1 = Variable(torch.zeros(state_size)).cuda()
+            cell1 = Variable(torch.zeros(state_size)).cuda()
+            hidden2 = Variable(torch.zeros(state_size)).cuda()
+            cell2 = Variable(torch.zeros(state_size)).cuda()
+        else:
+            hidden1 = Variable(torch.zeros(state_size)).cpu()
+            cell1 = Variable(torch.zeros(state_size)).cpu()
+            hidden2 = Variable(torch.zeros(state_size)).cpu()
+            cell2 = Variable(torch.zeros(state_size)).cpu()
         
         for i in range(args.seq_start):
                                                         
@@ -106,7 +112,10 @@ def run_training(args,reload=False):
         print('Initiating new model')
         
         model = Model()
-        model = model.cpu()
+        if (torch.cuda.is_available() == True):
+            model = model.cuda()
+        else:
+            model = model.cpu()
         start = 0
 
     torch.manual_seed(1)
@@ -118,7 +127,7 @@ def run_training(args,reload=False):
         self_built_dataset,
         batch_size=args.batch_size,
         shuffle=True,
-        num_workers=4,
+        num_workers=0,
         drop_last = True)
 
     criterion = nn.L1Loss()
@@ -136,15 +145,22 @@ def run_training(args,reload=False):
             loss = 0
             # X is the given data while the Y is the real output
             X, Y = data
-            X = Variable(X).cpu()
-            Y = Variable(Y).cpu()
+            if (torch.cuda.is_available() == True):
+                X = Variable(X).cuda()
+                Y = Variable(Y).cuda()
+            else:
+                X = Variable(X).cpu()
+                Y = Variable(Y).cpu()
             optimizer.zero_grad()         
-
-            output_list = model(X)
+            
+            with torch.no_grad():
+                output_list = model(X)
+                
             for i in range(args.seq_length-args.seq_start):
                 loss += criterion(output_list[i], Y[:,i,:,:])
 
             loss_ave += loss.data/100
+            loss = Variable(loss, requires_grad = True)
             loss.backward()
             optimizer.step()
             
@@ -153,8 +169,8 @@ def run_training(args,reload=False):
                 elapsed = time.time()-t
                 t = time.time()
 
-                print("EPOCH: %d, Iteration: %s, Duration %d s, Loss: %f" %(epoch,iteration,elapsed,loss_ave[0]))
-                summary.write("Epoch: %d ,Iteration: %s, Duration %d s, Loss: %f \n" %(epoch,iteration,elapsed,loss_ave[0]))
+                print("EPOCH: %d, Iteration: %s, Duration %d s, Loss: %f" %(epoch,iteration,elapsed,loss_ave.item()))
+                summary.write("Epoch: %d ,Iteration: %s, Duration %d s, Loss: %f \n" %(epoch,iteration,elapsed,loss_ave.item()))
                 loss_ave = 0
 
         print("Finished an epoch.Saving the net....... ")
