@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-#! /usr/bin/python3
-"""
-@author: cx,pqxu
-"""
-
 from PIL import Image
 import torch.utils.data as data
 import arrow
@@ -18,6 +13,8 @@ from torch.autograd import Variable
 from torch.nn import functional as func
 from torch.utils.data import DataLoader
 import argparse
+import warnings
+warnings.filterwarnings("ignore")
 
 
 
@@ -29,15 +26,15 @@ args.add_argument('--data_dir',
                   help = "dir where training is conducted")
 args.add_argument('--logs_train_dir',
                   type = str,
-                  default = './logs/loss_record/',
+                  default = './logs/',
                   help = "dir where summary is saved")                 
 args.add_argument('--img_dir',
                   type = str,
-                  default = './logs/test/',
+                  default = './output/',
                   help = "dir where output images are saved")
 args.add_argument('--model_dir',
                   type = str,
-                  default = './logs/models/',
+                  default = './models/',
                   help = "dir where models are saved")
 args.add_argument('--trainset_name',
                   type = str,
@@ -45,8 +42,8 @@ args.add_argument('--trainset_name',
                   help = "the training set where the training is conducted")
 args.add_argument('--testset_name',
                   type = str,
-                  default = 'testset',
-                  help = "the test set where the test is conducted")
+                  default = 'runset',
+                  help = "the run set where the nowcast is conducted")
 args.add_argument('--seq_length',
                   type = int,
                   default = 15,
@@ -81,12 +78,16 @@ args.add_argument('--batch_size',
                    help = """batch size for training""")
 args.add_argument('--weight_init',
                   type = float,
-                  default = .1,
+                  default = 10,
                   help = """weight init for FC layers""")
 args.add_argument('--threshold',
                   type = float,
                   default = 48.0,
                   help = """the threshold pass which is identified as hit""")
+args.add_argument('--cpuonly',
+                  type = int,
+                  default = 0,
+                  help = """disable CUDA""")
 
 args = args.parse_args()
 

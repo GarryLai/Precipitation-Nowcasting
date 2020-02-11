@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-#! /usr/bin/python3
-"""
-@author: pqxu
- edited by: cx
-"""
-
 
 import numpy as np
 import os
