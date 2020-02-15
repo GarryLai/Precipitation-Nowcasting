@@ -22,4 +22,8 @@ for s in re.finditer('CV1_TW_3600_2020', r.text):
 	sys.stdout.flush()
 	cnt = cnt + 1
 sys.stdout.flush()
+<<<<<<< HEAD
 print('\nDone.')
+=======
+print('\nDone.')
+>>>>>>> 716211da8f81cc1abaac17acfd4d3a99d052f103
