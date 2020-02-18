@@ -23,31 +23,31 @@ Environment:
 
 3. Install an environment
 ```
-  \# conda create -n project python=3.6 
-  \# conda create -n old python=3.6 
+   conda create -n project python=3.6 
+   conda create -n old python=3.6 
   
 ```
 4. Activate your new-built environemt and install Pytorch and torchvision (For Nowcasting)
 ```
-  \# activate project 
-  \# conda install -c peterjc123 pytorch (WIN10)
-  \# conda install -c peterjc123 pytorch cuda80 (WIN7)
-  \# pip install torchvision===0.2.1 -f https://download.pytorch.org/whl/torch_stable.html
-  \# pip install arrow
-  \# pip install pillow===6.0.0
-  \# pip install tqdm
-  \# pip install colorama
-  \# conda deactivate
+   activate project 
+   conda install -c peterjc123 pytorch (WIN10)
+   conda install -c peterjc123 pytorch cuda80 (WIN7)
+   pip install torchvision===0.2.1 -f https://download.pytorch.org/whl/torch_stable.html
+   pip install arrow
+   pip install pillow===6.0.0
+   pip install tqdm
+   pip install colorama
+   conda deactivate
 ```
 5. Activate your new-built environemt and install Pytorch and torchvision (For Training)
 ```
-  \# activate old 
-  \# pip install torch===1.4.0 torchvision===0.5.0 -f https://download.pytorch.org/whl/torch_stable.html
-  \# pip install arrow
-  \# pip install pillow
-  \# pip install tqdm
-  \# pip install colorama
-  \# conda deactivate
+   activate old 
+   pip install torch===1.4.0 torchvision===0.5.0 -f https://download.pytorch.org/whl/torch_stable.html
+   pip install arrow
+   pip install pillow
+   pip install tqdm
+   pip install colorama
+   conda deactivate
 ```
 
 ### Train the model 
