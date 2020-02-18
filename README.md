@@ -80,3 +80,10 @@ Evaluate your model's performance by running
 
 ## Notes
 1. [`Notes on ConvLSTM`](https://github.com/cxxixi/Precipitation-Nowcasting/issues/1)
+
+## Lnk
+```
+%windir%\System32\cmd.exe "/K" C:\ProgramData\Anaconda3\Scripts\activate.bat C:\ProgramData\Anaconda3 && call activate project && f: && cd Precipitation-Nowcasting
+
+%windir%\System32\cmd.exe "/K" C:\ProgramData\Anaconda3\Scripts\activate.bat C:\ProgramData\Anaconda3 && call activate old && f: && cd Precipitation-Nowcasting
+```
