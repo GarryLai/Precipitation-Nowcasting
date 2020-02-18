@@ -11,67 +11,72 @@ This is an easy-to-understand implementation of ConvLSTM model(fisrt proposed by
 ## Getting Started
 ### Prerequisites  
 Environment:   
-* Ubuntu 16.04+   
+* Win10 or Win7  
 * Anaconda 3-5.1  
 * Python 3.6  
-* CUDA 8
-     
-Python 3.6 Packages needed:  
-&ensp;&ensp;`Arrow`
-&ensp;&ensp;`Pytorch 0.3.1` 
-&ensp;&ensp;`PIL`
+* CUDA 8(BOTH 0.3.1 & 1.4.0) or CUDA10.1(ONLY FOR 1.4.0)
 
 ### Installing
-1. Install CUDA8
-```
-  \# sudo dpkg -i cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
-  \# sudo apt-get update
-  \# sudo apt-get install cuda
-```
-2. Download and install Anaconda environment 
-```
-  \# wget https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
-  \# bash Anaconda3-5.1.0-Linux-x86_64.sh
-```
-&ensp;&ensp;&ensp;&ensp;More on how to install Anaconda, see [`this passage`](https://www.jianshu.com/p/03d757283339)  
+1. Install CUDA8(BOTH 0.3.1 & 1.4.0) or CUDA10.1(ONLY FOR 1.4.0)
 
-3. Install an environment(optional but suggested)
+2. Download and install Anaconda environment  
+
+3. Install an environment
 ```
-  \# conda create -n pytorch python=3.6 
+  \# conda create -n project python=3.6 
+  \# conda create -n old python=3.6 
+  
 ```
-4. Activate your new-built environemt and install Pytorch and torchvision
+4. Activate your new-built environemt and install Pytorch and torchvision (For Nowcasting)
 ```
-  \# source activate pytorch 
-  \# pip3 install torch torchvision
+  \# activate project 
+  \# conda install -c peterjc123 pytorch (WIN10)
+  \# conda install -c peterjc123 pytorch cuda80 (WIN7)
+  \# pip install torchvision===0.2.1 -f https://download.pytorch.org/whl/torch_stable.html
+  \# pip install arrow
+  \# pip install pillow===6.0.0
+  \# pip install tqdm
+  \# pip install colorama
+  \# conda deactivate
+```
+5. Activate your new-built environemt and install Pytorch and torchvision (For Training)
+```
+  \# activate old 
+  \# pip install torch===1.4.0 torchvision===0.5.0 -f https://download.pytorch.org/whl/torch_stable.html
+  \# pip install arrow
+  \# pip install pillow
+  \# pip install tqdm
+  \# pip install colorama
+  \# conda deactivate
 ```
 
 ### Train the model 
 
-1. Download the all package and unpack it with the command:  
-``` 
-  \# tar zxvf conlstm.tar.gz YOUR WORK PATH
-```  
+1. Download the all package and unpack it   
 Note: you also need to unpack the files in the original `data` directory before training  
 
 2. Train the model 
 ```
-  Python3 training.py
+  Python training.py
 ```
 
 ### Running the test 
 
 Run the test.py with the command. 
 ```
-  python3 test.py  
+  python test.py  
 ```
 Evaluate your model's performance by running 
 ```
-  python3 evaluate.py
+  python evaluate.py
 ```
 
 ### Authors  
      cxxixi
      pqx
+     Amy Hsiao
+     Thomas Liu 
+     Garry Lai
 
 ## Notes
 1. [`Notes on ConvLSTM`](https://github.com/cxxixi/Precipitation-Nowcasting/issues/1)
