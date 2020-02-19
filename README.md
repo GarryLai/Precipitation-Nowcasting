@@ -29,10 +29,11 @@ Environment:
 ```
 4. Activate your new-built environemt and install Pytorch and torchvision (For Nowcasting)
 ```
-   activate project 
+   activate old 
    conda install -c peterjc123 pytorch (WIN10)
    conda install -c peterjc123 pytorch cuda80 (WIN7)
    pip install torchvision===0.2.1 -f https://download.pytorch.org/whl/torch_stable.html
+   pip install requests
    pip install arrow
    pip install pillow===6.0.0
    pip install tqdm
@@ -41,8 +42,9 @@ Environment:
 ```
 5. Activate your new-built environemt and install Pytorch and torchvision (For Training)
 ```
-   activate old 
+   activate project
    pip install torch===1.4.0 torchvision===0.5.0 -f https://download.pytorch.org/whl/torch_stable.html
+   pip install requests
    pip install arrow
    pip install pillow
    pip install tqdm
